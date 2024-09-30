@@ -6,6 +6,9 @@ import Consumption from "./src/screens/Consumption";
 import Alert from "./src/screens/Alert";
 import Notification from "./src/screens/Notification";
 import Account from "./src/screens/Account";
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 const App = () => {
     const Tab = createBottomTabNavigator();
@@ -20,43 +23,55 @@ const App = () => {
     //   );
     // }
 
+    const colors = {
+        tabBackgroundColor: 'rgba(25,65,76,1)',
+        greenTab: 'rgba(109,204,68,1)',
+        whiteTab: 'rgba(250, 250, 250,1)'
+    }
+
     return (
         //   <Provider store={store}>
         <NavigationContainer>
             <Tab.Navigator screenOptions={() => ({
                 headerShown: false,
+                tabBarActiveTintColor: colors.greenTab,
+                tabBarInactiveTintColor: colors.whiteTab,
+                tabBarLabelStyle: {
+                    fontSize: 14.5
+                } ,
                 tabBarStyle: {
-                    height: 70,
-                    paddingHorizontal: 5,
+                    height: 80,
+                    paddingHorizontal: 0,
                     paddingTop: 0,
-                    backgroundColor: 'rgba(62,61,61,1)',
+                    paddingBottom: 2,
+                    backgroundColor: colors.tabBackgroundColor,                    
                     position: 'absolute',
                     borderTopWidth: 0,
-                },
+                }
             })} >
                 <Tab.Screen name="Dashboard" component={Dashboard} options={{
                     headerShown: false,
-                    //   tabBarIcon: () => (<Icon name='home-circle' size={25} color={"black"}/>),
+                      tabBarIcon: ({color, focused}) => (<MaterialCommunityIcon name='view-dashboard-outline' size={35} color={focused?colors.greenTab:colors.whiteTab} />),
                     tabBarLabel: "Dasboard"
                 }} />
                 <Tab.Screen name="Consumption" component={Consumption} options={{
                     headerShown: false,
-                    //   tabBarIcon: () => (<Icon name='home-circle' size={25} color={"black"}/>),
+                        tabBarIcon: ({color, focused}) => (<FontAwesome6 name='chart-simple' size={32} color={focused?colors.greenTab:colors.whiteTab} />),
                     tabBarLabel: "Ma Conso"
                 }} />
                 <Tab.Screen name="Alert" component={Alert} options={{
                     headerShown: false,
-                    //   tabBarIcon: () => (<Icon name='home-circle' size={25} color={"black"}/>),
+                        tabBarIcon: ({color, focused}) => (<MaterialCommunityIcon name='alert-outline' size={38} color={focused?colors.greenTab:colors.whiteTab} />),
                     tabBarLabel: "Mes alertes"
                 }} />
                 <Tab.Screen name="Notification" component={Notification} options={{
                     headerShown: false,
-                    //   tabBarIcon: () => (<Icon name='home-circle' size={25} color={"black"}/>),
+                        tabBarIcon: ({color, focused}) => (<MaterialIcons name='notifications' size={37} color={focused?colors.greenTab:colors.whiteTab} />),
                     tabBarLabel: "Notifications"
                 }} />
                 <Tab.Screen name="Account" component={Account} options={{
                     headerShown: false,
-                    //   tabBarIcon: () => (<Icon name='home-circle' size={25} color={"black"}/>),
+                    tabBarIcon: ({color, focused}) => (<MaterialCommunityIcon name='account' size={42} color={focused?colors.greenTab:colors.whiteTab} />),
                     tabBarLabel: "Compte"
                 }} />
             </Tab.Navigator>
