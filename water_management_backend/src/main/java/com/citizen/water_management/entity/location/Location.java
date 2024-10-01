@@ -1,9 +1,12 @@
 package com.citizen.water_management.entity.location;
 
 import com.citizen.water_management.entity.Area;
+import com.citizen.water_management.entity.WaterSupply;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 @Entity @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
@@ -24,4 +27,7 @@ public abstract class Location {
     @ManyToOne
     @JoinColumn(name = "area_id")
     protected Area area;
+
+    @OneToMany(mappedBy = "location")
+    protected List<WaterSupply> waterSupply;
 }

@@ -1,6 +1,7 @@
 package com.citizen.water_management.entity;
 
 
+import com.citizen.water_management.entity.location.Location;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,5 +25,8 @@ public class WaterSupply {
     @JsonIgnore
     private List<Alert> alertList;
 
-    //TODO lieuID
+    @ManyToOne()
+    @JoinColumn(name = "location_id")
+    @JsonIgnore
+    private Location location;
 }

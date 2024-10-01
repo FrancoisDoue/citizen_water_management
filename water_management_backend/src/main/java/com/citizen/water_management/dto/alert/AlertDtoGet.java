@@ -3,14 +3,14 @@ package com.citizen.water_management.dto.alert;
 import com.citizen.water_management.entity.Action;
 import com.citizen.water_management.entity.Alert;
 import com.citizen.water_management.entity.WaterSupply;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter @Setter
+@Getter @Setter @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class AlertDtoGet {
 
     private long id;
