@@ -1,7 +1,9 @@
 package com.citizen.water_management.services;
 
+import com.citizen.water_management.entity.Alert;
 import com.citizen.water_management.entity.account.Account;
 import com.citizen.water_management.entity.account.Role;
+import com.citizen.water_management.repository.AlertRepository;
 import com.citizen.water_management.repository.account.AccountRepository;
 import com.citizen.water_management.repository.account.RoleRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,10 +17,12 @@ public class AdministratorActionService {
 
     private final AccountRepository accountRepository;
     private final RoleRepository roleRepository;
+    private final AlertRepository alertRepository;
 
-    public AdministratorActionService(AccountRepository accountRepository, RoleRepository roleRepository) {
+    public AdministratorActionService(AccountRepository accountRepository, RoleRepository roleRepository, AlertRepository alertRepository) {
         this.accountRepository = accountRepository;
         this.roleRepository = roleRepository;
+        this.alertRepository = alertRepository;
     }
 
     public List<Account> getAllAccounts() {
@@ -43,6 +47,12 @@ public class AdministratorActionService {
             account.setRole(roleRepository.findByAuthority(role).orElse(Role.builder().authority(role).build()));
         }
         return accountRepository.save(account);
+    }
+
+    public List<Alert> getAllAlerts(Boolean isOpen) {
+        if (isOpen != null)
+            return alertRepository.findByOpen(isOpen);
+        return alertRepository.findAll();
     }
 
 }

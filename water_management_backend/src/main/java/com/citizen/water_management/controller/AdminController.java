@@ -1,5 +1,6 @@
 package com.citizen.water_management.controller;
 
+import com.citizen.water_management.entity.Alert;
 import com.citizen.water_management.entity.account.Account;
 import com.citizen.water_management.entity.account.Role;
 import com.citizen.water_management.services.AdministratorActionService;
@@ -28,5 +29,10 @@ public class AdminController {
     @PutMapping("/accounts/{id}/{role}")
     public ResponseEntity<Account> setRoleToAccount(@PathVariable(name = "id") int id, @PathVariable(name = "role") String role) {
         return ResponseEntity.ok(administratorActionService.setRoleToAccount(id, role));
+    }
+
+    @GetMapping("/alerts")
+    public ResponseEntity<List<Alert>> getAlerts(@RequestParam(required = false, name = "open") Boolean open) {
+        return ResponseEntity.ok(administratorActionService.getAllAlerts(open));
     }
 }
