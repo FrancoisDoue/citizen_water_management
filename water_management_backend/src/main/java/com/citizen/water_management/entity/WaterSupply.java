@@ -1,6 +1,7 @@
 package com.citizen.water_management.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +21,7 @@ public class WaterSupply {
     private double waterPressure;
 
     @OneToMany(mappedBy = "waterSupply")
+    @JsonIgnore
     private List<Alert> alertList;
 
     //TODO lieuID
