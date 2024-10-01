@@ -1,5 +1,6 @@
 package com.citizen.water_management.entity.account;
 
+import com.citizen.water_management.entity.Action;
 import com.citizen.water_management.entity.Area;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,8 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 @Entity @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Technician extends Account {
-    protected String job;
+public class Technician extends Account {
+    private String job;
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    protected List<Area> areas;
+    private List<Area> areas;
+
+    @OneToMany(mappedBy = "technician")
+    private List<Action> actions;
 }
