@@ -15,7 +15,7 @@ import java.util.List;
 @Entity @Table(name = "water_company")
 public class WaterCompany extends Account {
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "water_company_areas")
+    @JoinColumn(name = "company_id")
     private List<Area> areas;
 
 }
