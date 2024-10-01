@@ -13,7 +13,9 @@ export const login = createAsyncThunk("authentication/login", async () => {
 const authSlice = createSlice({
     name: "authentication",
     initialState: {       
-        loginIsPending: false
+        loginIsPending: false,
+        token: null,
+        decodedToken: null
     },
     reducers: {
         
