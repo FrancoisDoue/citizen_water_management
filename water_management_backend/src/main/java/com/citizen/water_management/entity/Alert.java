@@ -1,16 +1,16 @@
 package com.citizen.water_management.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity @Table(name = "alert")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter @Setter
 public class Alert {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,10 @@ public class Alert {
 
     //TODO Repository
 
-    //TODO lieuID
-    //TODO List<AlertId>
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "water_supply_id")
+    private WaterSupply waterSupply;
+
+    @OneToMany(mappedBy = "alert")
+    private List<Action> actions;
 }
