@@ -1,10 +1,14 @@
 package com.citizen.water_management.services;
 
 import com.citizen.water_management.config.jwt.JwtProvider;
+import com.citizen.water_management.dto.account.CompanyTechnicianRegisterDTO;
 import com.citizen.water_management.entity.account.Account;
 import com.citizen.water_management.entity.account.Role;
+import com.citizen.water_management.entity.account.Technician;
+import com.citizen.water_management.entity.account.WaterCompany;
 import com.citizen.water_management.repository.account.AccountRepository;
 import com.citizen.water_management.repository.account.RoleRepository;
+import com.citizen.water_management.util.type.RoleType;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -54,6 +58,32 @@ public class AuthenticationService implements UserDetailsService {
             account.setPassword(passwordEncoder.encode(account.getPassword()));
             account.setRole(roleRepository.findByAuthority(role.getAuthority()).orElse(role));
             return accountRepository.save(account);
+        } catch (Exception e) {
+            e.fillInStackTrace();
+            throw new BadCredentialsException("Invalid email or password");
+        }
+    }
+
+    public Technician registerCompanyTechnicianAccount(CompanyTechnicianRegisterDTO dto) {
+        Technician technician = Technician.builder()
+            .email(dto.getEmail())
+            .password(dto.getPassword())
+            .firstname(dto.getFirstname())
+            .lastname(dto.getLastname())
+            .waterCompany(
+                (WaterCompany) accountRepository.findById(dto.getCompanyId())
+                    .orElseThrow(() -> new UsernameNotFoundException(
+                            "Company not found with id : " + dto.getCompanyId())
+                    )
+            )
+            .job(dto.getJob())
+            .role(
+                roleRepository.findByAuthority(RoleType.WATER_COMPANY_TECHNICIAN.name())
+                    .orElse(new Role(0, RoleType.WATER_COMPANY_TECHNICIAN.name()))
+            )
+            .build();
+        try {
+            return accountRepository.save(technician);
         } catch (Exception e) {
             e.fillInStackTrace();
             throw new BadCredentialsException("Invalid email or password");

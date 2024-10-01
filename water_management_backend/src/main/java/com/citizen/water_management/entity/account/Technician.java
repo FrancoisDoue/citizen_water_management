@@ -19,6 +19,10 @@ public class Technician extends Account {
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Area> areas;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "water_company_id")
+    private WaterCompany waterCompany;
+
     @OneToMany(mappedBy = "technician")
     private List<Action> actions;
 }
