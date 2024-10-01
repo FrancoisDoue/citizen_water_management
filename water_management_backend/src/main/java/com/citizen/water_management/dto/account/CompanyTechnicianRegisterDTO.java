@@ -5,12 +5,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TechnicianRegisterDTO extends BaseRegisterDTO {
-    protected String job;
+public class CompanyTechnicianRegisterDTO extends TechnicianRegisterDTO {
+    private int companyId;
 }

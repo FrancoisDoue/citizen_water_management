@@ -4,5 +4,6 @@ public enum RoleType {
     SUPER_ADMIN,
     USER,
     TECHNICIAN,
+    WATER_COMPANY,
     WATER_COMPANY_TECHNICIAN,
 }

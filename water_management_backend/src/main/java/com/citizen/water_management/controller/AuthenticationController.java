@@ -1,11 +1,13 @@
 package com.citizen.water_management.controller;
 
+import com.citizen.water_management.dto.account.CompanyTechnicianRegisterDTO;
 import com.citizen.water_management.dto.account.LoginDTO;
 import com.citizen.water_management.dto.account.BaseRegisterDTO;
 import com.citizen.water_management.dto.account.TechnicianRegisterDTO;
 import com.citizen.water_management.entity.account.Account;
 import com.citizen.water_management.entity.account.Role;
 import com.citizen.water_management.entity.account.Technician;
+import com.citizen.water_management.entity.account.WaterCompany;
 import com.citizen.water_management.services.AuthenticationService;
 import com.citizen.water_management.util.type.RoleType;
 import org.springframework.http.HttpStatus;
@@ -59,5 +61,24 @@ public class AuthenticationController {
                 Role.builder().authority(RoleType.TECHNICIAN.name()).build()
         );
         return new ResponseEntity<>(technician, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/register/company-technician")
+    public ResponseEntity<Technician> registerCompanyTechnician(@RequestBody CompanyTechnicianRegisterDTO newAccount) {
+        return new ResponseEntity<>(authenticationService.registerCompanyTechnicianAccount(newAccount), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/register/company")
+    public ResponseEntity<WaterCompany> registerCompany(@RequestBody BaseRegisterDTO newAccount) {
+        WaterCompany waterCompany = (WaterCompany) authenticationService.registerAccount(
+                WaterCompany.builder()
+                        .email(newAccount.getEmail())
+                        .password(newAccount.getPassword())
+                        .firstname(newAccount.getFirstname())
+                        .lastname(newAccount.getLastname())
+                        .build(),
+                Role.builder().authority(RoleType.WATER_COMPANY.name()).build()
+        );
+        return new ResponseEntity<>(waterCompany, HttpStatus.CREATED);
     }
 }
