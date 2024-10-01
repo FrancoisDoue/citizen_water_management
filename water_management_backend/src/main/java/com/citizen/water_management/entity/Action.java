@@ -1,6 +1,7 @@
 package com.citizen.water_management.entity;
 
 import com.citizen.water_management.entity.account.Technician;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,9 +23,11 @@ public class Action {
 
     @ManyToOne
     @JoinColumn(name = "alert_id")
+    @JsonIgnore
     private Alert alert;
 
     @ManyToOne
     @JoinColumn(name = "technician_id")
+    @JsonIgnore
     private Technician technician;
 }

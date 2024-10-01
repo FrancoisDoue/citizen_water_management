@@ -1,5 +1,6 @@
 package com.citizen.water_management.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,8 +26,10 @@ public class Alert {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "water_supply_id")
+    @JsonIgnore
     private WaterSupply waterSupply;
 
     @OneToMany(mappedBy = "alert")
+    @JsonIgnore
     private List<Action> actions;
 }
