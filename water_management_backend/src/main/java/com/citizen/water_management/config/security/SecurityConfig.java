@@ -1,6 +1,7 @@
 package com.citizen.water_management.config.security;
 
 import com.citizen.water_management.config.jwt.JwtRequestFilter;
+import com.citizen.water_management.util.type.RoleType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -56,7 +57,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(this.corsConfigurationSource()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers("/api/auth/register").hasAuthority("SUPER_ADMIN")
+                        .requestMatchers("/api/auth/register").hasAuthority(RoleType.SUPER_ADMIN.name())
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class)
