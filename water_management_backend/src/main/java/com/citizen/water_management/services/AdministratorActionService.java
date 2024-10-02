@@ -55,4 +55,8 @@ public class AdministratorActionService {
         return alertRepository.findAll();
     }
 
+    public Account getAccountById(Integer id) {
+        return accountRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Account not found with id: " + id));
+    }
+
 }

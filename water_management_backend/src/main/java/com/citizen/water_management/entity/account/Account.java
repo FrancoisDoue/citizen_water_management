@@ -1,6 +1,8 @@
 package com.citizen.water_management.entity.account;
 
 import com.citizen.water_management.entity.Notification;
+import com.citizen.water_management.entity.location.Home;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -36,6 +38,11 @@ public class Account implements UserDetails {
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     protected List<Notification> notifications;
+
+    @ManyToOne
+    @JoinColumn(name = "home_id")
+    @JsonIgnore
+    protected Home home;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

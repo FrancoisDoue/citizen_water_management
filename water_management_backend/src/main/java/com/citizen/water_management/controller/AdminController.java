@@ -4,6 +4,7 @@ import com.citizen.water_management.entity.Alert;
 import com.citizen.water_management.entity.account.Account;
 import com.citizen.water_management.entity.account.Role;
 import com.citizen.water_management.services.AdministratorActionService;
+import com.citizen.water_management.services.AlertService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +15,11 @@ import java.util.List;
 public class AdminController {
 
     private final AdministratorActionService administratorActionService;
+    private final AlertService alertService;
 
-    public AdminController(AdministratorActionService administratorActionService) {
+    public AdminController(AdministratorActionService administratorActionService, AlertService alertService) {
         this.administratorActionService = administratorActionService;
+        this.alertService = alertService;
     }
 
     @GetMapping("/accounts")

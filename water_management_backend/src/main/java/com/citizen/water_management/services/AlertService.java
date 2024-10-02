@@ -42,7 +42,7 @@ public class AlertService {
                 .title(alertDtoPost.getTitle())
                 .message(alertDtoPost.getMessage())
                 .waterSupply(waterSupply.get())
-                .open(false)
+                .open(true)
                 .createdDate(LocalDateTime.now())
                 .build();
         alertRepository.save(alert);

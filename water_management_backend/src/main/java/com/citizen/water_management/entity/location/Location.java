@@ -2,6 +2,7 @@ package com.citizen.water_management.entity.location;
 
 import com.citizen.water_management.entity.Area;
 import com.citizen.water_management.entity.WaterSupply;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -26,8 +27,10 @@ public abstract class Location {
 
     @ManyToOne
     @JoinColumn(name = "area_id")
+    @JsonIgnore
     protected Area area;
 
     @OneToMany(mappedBy = "location")
+    @JsonIgnore
     protected List<WaterSupply> waterSupply;
 }
