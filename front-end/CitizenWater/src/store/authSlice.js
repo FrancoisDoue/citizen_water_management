@@ -1,37 +1,51 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-
-export const login = createAsyncThunk("authentication/login", async () => {
-    const response = await axios.post(`${BASE_URL}`);
-    const data = await response.data;
-    
-    //TODO Manipuler Token
-})
-
-
+import { createSlice } from "@reduxjs/toolkit";
+import { login } from "../services/authService";
 
 const authSlice = createSlice({
-    name: "authentication",
+    name: "auth",
     initialState: {       
-        loginIsPending: false,
         token: null,
-        decodedToken: null
+        decodedToken: null,
+        pending: false,
     },
     reducers: {
-        
+        setToken: (state, action) => {
+            console.log(action.payload)
+            state.token = action.payload
+        },
+        setDecodedToken: (state, action) => {
+            console.log(action.payload)
+            state.decodedToken = action.payload
+        },
+        clearTokens: (state) => {
+            state.token = null
+            state.decodedToken = null
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled, (state, action) => {
-            // state.pokemons = action.payload.list;
-            // state.next = action.payload.next;
-            // state.previous = action.payload.previous;   
-            state.loginIsPending = false         
+            state.pending = false
         });
-        
         builder.addCase(login.pending, (state, action) => {
-            state.loginIsPending = true;
+            state.pending = false         
+        })
+        builder.addCase(login.rejected, (state, action) => {
+            state.pending = true;
+            console.log(action.error)
         })
     }
 })
+
+export const selectIsLogged = ({auth}) => {
+    return auth.token 
+        && auth.decodedToken 
+        && auth.decodedToken?.exp >= Math.round(Date.now() / 1000)
+}
+
+export const {
+    setToken,
+    setDecodedToken,
+    clearTokens,
+} = authSlice.actions;
 
 export default authSlice.reducer;

@@ -1,20 +1,18 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Dashboard from "./src/screens/Dashboard";
+import Dashboard from "./screens/Dashboard";
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
-import Consumption from "./src/screens/Consumption";
-import Alert from "./src/screens/Alert";
-import Notification from "./src/screens/Notification";
-import Account from "./src/screens/Account";
+import Consumption from "./screens/Consumption";
+import Alert from "./screens/Alert";
+import Notification from "./screens/Notification";
+import Account from "./screens/Account";
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import StyleColors from "./src/styles/StyleColors";
-import { store } from "./src/store/store";
-import { Provider } from 'react-redux';
+import StyleColors from "./styles/StyleColors";
 
 
-const App = () => {
+const Navigator = () => {
     const Tab = createBottomTabNavigator();
     // const Stack = createNativeStackNavigator();
 
@@ -78,4 +76,4 @@ const App = () => {
 
 const styles = StyleSheet.create({});
 
-export default App;
+export default Navigator;

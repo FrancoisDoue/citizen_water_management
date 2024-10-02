@@ -1,5 +1,6 @@
 package com.citizen.water_management.config.jwt;
 
+import com.citizen.water_management.entity.account.Account;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,6 +37,7 @@ public class JwtProvider {
         return Jwts.builder()
                 .setSubject(username)
                 .claim("roles", roles)
+                .claim("id", ((Account) authentication.getPrincipal()).getId())
                 .setIssuedAt(now)
                 .setExpiration(expiration)
                 .signWith(getSigningKey())
