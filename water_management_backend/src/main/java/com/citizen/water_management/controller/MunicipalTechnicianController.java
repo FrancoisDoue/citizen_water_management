@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/municipal-technician")
-public class MunicipalTechnician {
+public class MunicipalTechnicianController {
 
     @Autowired
     private AlertService alertService;
@@ -26,4 +26,5 @@ public class MunicipalTechnician {
     public ResponseEntity<List<AlertDtoGet>> getAlertGreenSpaceAlert() {
         return ResponseEntity.ok(alertService.getAllAlertsWhereIsGreenSpace());
     }
+
 }

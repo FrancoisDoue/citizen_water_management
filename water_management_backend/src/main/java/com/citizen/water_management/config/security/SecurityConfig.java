@@ -59,6 +59,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/register/**").hasAuthority(RoleType.SUPER_ADMIN.name())
                         .requestMatchers("/api/municipal-technician/**").hasAuthority(RoleType.TECHNICIAN.name())
+                        .requestMatchers("/api/water-company-technician/**").hasAuthority(RoleType.WATER_COMPANY_TECHNICIAN.name())
+                        .requestMatchers("/api/user/**").hasAuthority(RoleType.USER.name())
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class)

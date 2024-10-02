@@ -5,6 +5,8 @@ INSERT INTO `account` (email, password, firstname, lastname, role) VALUES ('gcom
 INSERT INTO `water_company` (id) VALUE ('3');
 INSERT INTO `account` (email, password, firstname, lastname, role) VALUES ('technician', '$2a$10$F98Oxnu8SS7JmCgm4rzJUO4ugWyxpnCppklIzP9PUKfSkp5.Z6j/e', 'Régis', 'Teckos', 5);
 INSERT INTO `technician` (id, water_company_id, job) VALUES (4, 3, 'ingénieur du son');
+
+INSERT INTO `notification` (title, image_url, message, open, created_date, account_id) VALUES ('baisse conso', 'https://image-static.collegedunia.com/public/image/44def96a3e1903f38b50e9306932b637.png', 'leau cest bieng', false, '1925-05-05T05:05:05', 2);
 INSERT INTO `water_supply` (consumption_water, water_pressure, reference) VALUES (1.5, 5.5, 'je suis une référence');
 
 
