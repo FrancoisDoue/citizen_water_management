@@ -42,7 +42,7 @@ public class AlertService {
                 .title(alertDtoPost.getTitle())
                 .message(alertDtoPost.getMessage())
                 .waterSupply(waterSupply.get())
-                .open(true)
+                .open(false)
                 .createdDate(LocalDateTime.now())
                 .build();
         alertRepository.save(alert);
@@ -54,5 +54,10 @@ public class AlertService {
         List <Alert> greenSpaceAlerts = alerts.stream().filter(
                 alert ->  alert.getWaterSupply().getLocation() instanceof GreenSpace).toList();
         return greenSpaceAlerts.stream().map(AlertDtoGet::new).toList();
+    }
+
+    public List<AlertDtoGet> getAllAlerts(){
+        List<Alert> alerts = alertRepository.findAll();
+        return alerts.stream().map(AlertDtoGet::new).toList();
     }
 }

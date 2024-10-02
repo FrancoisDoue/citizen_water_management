@@ -1,5 +1,6 @@
 package com.citizen.water_management.entity.account;
 
+import com.citizen.water_management.entity.Notification;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -32,6 +33,9 @@ public class Account implements UserDetails {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "role")
     protected Role role;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    protected List<Notification> notifications;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
