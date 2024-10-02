@@ -58,6 +58,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/register/**").hasAuthority(RoleType.SUPER_ADMIN.name())
+                        .requestMatchers("/api/admin/**").hasAuthority(RoleType.SUPER_ADMIN.name())
                         .requestMatchers("/api/municipal-technician/**").hasAuthority(RoleType.TECHNICIAN.name())
                         .requestMatchers("/api/water-company-technician/**").hasAuthority(RoleType.WATER_COMPANY_TECHNICIAN.name())
                         .requestMatchers("/api/user/**").hasAuthority(RoleType.USER.name())

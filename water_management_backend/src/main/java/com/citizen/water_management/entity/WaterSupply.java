@@ -29,4 +29,8 @@ public class WaterSupply {
     @JoinColumn(name = "location_id")
     @JsonIgnore
     private Location location;
+
+    @OneToMany(mappedBy = "waterSupply")
+    @JsonIgnore
+    private List<ConsumptionDetail> consumptionDetailList;
 }
