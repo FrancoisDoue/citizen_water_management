@@ -18,9 +18,12 @@ public class Notification {
     private long id;
 
     private String title;
+
+    @Column(name = "image_url")
     private String imageUrl;
     private String message;
     private boolean open;
+    @Column(name = "created_date")
     private LocalDateTime createdDate;
 
     @ManyToOne

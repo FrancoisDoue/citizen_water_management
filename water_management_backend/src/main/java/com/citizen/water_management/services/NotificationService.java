@@ -9,6 +9,7 @@ import com.citizen.water_management.repository.account.AccountRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,5 +37,13 @@ public class NotificationService {
                 .build();
         notificationRepository.save(notification);
         return new NotificationDtoGet(notification);
+    }
+
+    public List<NotificationDtoGet> getAllNotificationsByAccountId(int accountId){
+        Optional<Account> account = accountRepository.findById(accountId);
+        if(account.isEmpty()) throw new IllegalArgumentException("Account Not found");
+
+        List<Notification> notifications = notificationRepository.findByAccount(account.get());
+        return notifications.stream().map(NotificationDtoGet::new).toList();
     }
 }
