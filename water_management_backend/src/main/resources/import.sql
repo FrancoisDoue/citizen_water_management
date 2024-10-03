@@ -21,4 +21,5 @@ INSERT INTO `water_supply`(consumption_water, water_pressure, reference, locatio
 INSERT INTO `alert`(open, created_date, water_supply_id, message, title ) VALUES (true, '1925-05-05T05:05:05', 1, 'privé', 'privé');
 INSERT INTO `alert`(open, created_date, water_supply_id, message, title ) VALUES (true, '1925-05-05T05:05:05', 2, 'public', 'public');
 
-INSERT INTO `consumption_detail`(end_date, start_date, medium_pressure, water_consumption, water_supply_id) VALUES ('2024-09-01', '2024-09-30', 5.5, 5.5, 1)
+INSERT INTO `consumption_detail`(end_date, start_date, medium_pressure, water_consumption, water_supply_id) VALUES ('2024-08-01', '2024-08-31', 5.5, 5.5, 1);
+INSERT INTO `consumption_detail`(end_date, start_date, medium_pressure, water_consumption, water_supply_id) VALUES ('2024-09-01', '2024-09-30', 5.5, 5.5, 1);

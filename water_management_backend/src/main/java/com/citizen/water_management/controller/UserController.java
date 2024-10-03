@@ -41,6 +41,12 @@ public class UserController {
         return ResponseEntity.ok(locationService.getHistoryOfConsumptions(userId));
     }
 
+    @GetMapping("/{userId}/consumption-of-last-month")
+    public ResponseEntity<List<WaterSupplyDtoGetForHistoryOfConsumption>>
+    getConsumptionOfLastMonth(@PathVariable("userId") int userId) {
+        return ResponseEntity.ok(locationService.getLastConsumptions(userId));
+    }
+
     @GetMapping("/{userId}")
     public ResponseEntity<Account> getAccountByUser(@PathVariable("userId") int userId) {
         return ResponseEntity.ok(administratorActionService.getAccountById(userId));
