@@ -3,6 +3,7 @@ import { api } from "../utils/api.backend";
 import { jwtDecode } from "jwt-decode";
 import { clearTokens, setDecodedToken, setToken } from "../store/authSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { clearUserDatas } from "../store/userSlice";
 
 const USER_KEY = 'citizen_water_token'
 
@@ -25,7 +26,10 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk(
     'auth/logout',
     (_arg, {dispatch}) => {
-        AsyncStorage.removeItem(USER_KEY).then(() => dispatch(clearTokens()))
+        return AsyncStorage.removeItem(USER_KEY).then(() => {
+            dispatch(clearTokens())
+            dispatch(clearUserDatas())
+        })
     }
 )
 

@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "./screens/Dashboard";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import Consumption from "./screens/Consumption";
 import Alert from "./screens/Alert";
@@ -10,10 +10,21 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import StyleColors from "./styles/StyleColors";
+import { useEffect, useLayoutEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchUserDatas } from "./services/userService";
+
 
 
 const Navigator = () => {
+
+    const dispatch = useDispatch()
     const Tab = createBottomTabNavigator();
+
+    useEffect(() => {
+        console.log("use effect")
+        dispatch(fetchUserDatas())
+    }, [])
     // const Stack = createNativeStackNavigator();
 
     // function MyStackNavigator() {

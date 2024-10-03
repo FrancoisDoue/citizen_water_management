@@ -1,33 +1,24 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import logo from '../../assets/121.png'
 import generalStyle from '../styles/GeneralStyle';
 import SmCard from '../components/SmCard';
-import { useDispatch } from 'react-redux';
-import { fetchUserDatas } from '../services/userService';
+import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import styleColors from '../styles/StyleColors';
 import { useNavigation } from '@react-navigation/native';
 
 const Dashboard = () => {
 
-    const dispatch = useDispatch()
     const navigation = useNavigation()
-
-    useEffect(() => {
-        console.log("use effect")
-        
-        dispatch(fetchUserDatas())
-    }, [''])
+    const userDatas = useSelector(({user}) => user.datas)
 
     return (
         <View style={generalStyle.view}>
             <Image source={logo} style={styles.image} />
-            <Text style={styles.title} >Bienvenue</Text>
+            <Text style={styles.title} >Bienvenue, {userDatas?.firstname || ''}</Text>
             <View style={styles.notificationContainer}>
-                <SmCard
-                    cardStyle={styles.customCard}
-                >
+                {userDatas?.alerts?.length && <SmCard cardStyle={[styles.customCard, {flex: 1}]}>
                     <Pressable 
                         onPress={() => navigation.navigate('Alert')} 
                         style={styles.pressableCard}
@@ -35,20 +26,17 @@ const Dashboard = () => {
                         <Icon name={'alert-outline'} size={35} />
                         <Text style={styles.alertCounter}>1</Text>
                     </Pressable>
-                </SmCard>
-                <SmCard
-                    cardStyle={styles.customCard}
-                >
+                </SmCard>}
+                <SmCard cardStyle={[styles.customCard, !userDatas?.alerts?.length && {flex: 1}]}>
                     <Pressable 
                         onPress={() => navigation.navigate('Notification')} 
                         style={styles.pressableCard}
                     >
                         <Icon name={'bell-outline'} size={35} color={styleColors.blue2} />
-                        <Text style={styles.notificationCounter}>1</Text>
+                        <Text style={styles.notificationCounter}>{userDatas?.notifications.length}</Text>
                     </Pressable>
                 </SmCard>
             </View>
-
         </View>
     );
 }
@@ -73,7 +61,7 @@ const styles = StyleSheet.create({
     },
     alertBox: {
         backgroundColor: '#fff',
-        flex: 1,
+        flex: .5,
         margin: 10,
         padding: 5,
         borderRadius: 10,

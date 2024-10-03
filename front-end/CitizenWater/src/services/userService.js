@@ -4,17 +4,11 @@ import { setDatas } from "../store/userSlice";
 
 export const fetchUserDatas = createAsyncThunk(
     'user/fetchUserDatas',
-    async (_args, {rejectWithValue, getState, dispatch}) => {
-        try {
-            const {token, decodedToken} = getState().auth
-            const response = await api.get(`/user/${decodedToken.id}`, {
-                headers: {Authorization: `Bearer ${token}`}
-            })
-            dispatch(setDatas(response))
-        } catch (e) {
-            console.warn(e)
-            rejectWithValue(e)
-        }
+    (_args, {rejectWithValue, getState, dispatch}) => {
+        const {token, decodedToken} = getState().auth
+        return api.get(`/user/${decodedToken.id}`, { headers: {Authorization: `Bearer ${token}`} })
+        .then((datas) => dispatch(setDatas(datas)))
+        .catch(rejectWithValue)
     },
-    {condition: (_args, {getState}) => !getState().users?.datas}
+    {condition: (args, {getState}) => getState().user?.datas || !args?.force}
 )
