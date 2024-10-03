@@ -31,16 +31,16 @@ export const logout = createAsyncThunk(
 
 export const initAuth = createAsyncThunk(
     'auth/initAuth',
-    (_arg, {dispatch}) => {
-        AsyncStorage.getItem(USER_KEY)
-            .then((token) => {
-                const decodedToken = jwtDecode(token)
-                if (decodedToken?.exp >= Math.round(Date.now() / 1000)) {
-                    dispatch(setToken(token))
-                    dispatch(setDecodedToken(decodedToken))
-                } else {
-                    AsyncStorage.removeItem(USER_KEY)
-                }
-            })
+    async (_arg, {dispatch}) => {
+        const token = await AsyncStorage.getItem(USER_KEY)
+        if (!!token) {
+            const decodedToken = jwtDecode(token)
+            if (decodedToken?.exp >= Math.round(Date.now() / 1000)) {
+                dispatch(setToken(token))
+                dispatch(setDecodedToken(decodedToken))
+            } else {
+                AsyncStorage.removeItem(USER_KEY)
+            }
+        }
     }
 )

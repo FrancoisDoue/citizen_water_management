@@ -1,14 +1,18 @@
 import React, { useEffect, useLayoutEffect } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import logo from '../../assets/121.png'
 import generalStyle from '../styles/GeneralStyle';
 import SmCard from '../components/SmCard';
 import { useDispatch } from 'react-redux';
 import { fetchUserDatas } from '../services/userService';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import styleColors from '../styles/StyleColors';
+import { useNavigation } from '@react-navigation/native';
 
 const Dashboard = () => {
 
     const dispatch = useDispatch()
+    const navigation = useNavigation()
 
     useEffect(() => {
         console.log("use effect")
@@ -21,13 +25,27 @@ const Dashboard = () => {
             <Image source={logo} style={styles.image} />
             <Text style={styles.title} >Bienvenue</Text>
             <View style={styles.notificationContainer}>
-                {/* <View style={styles.alertBox}>
-                    <Text>Wesh</Text>
-                </View> */}
                 <SmCard
                     cardStyle={styles.customCard}
                 >
-                    <Text>Wesh</Text>
+                    <Pressable 
+                        onPress={() => navigation.navigate('Alert')} 
+                        style={styles.pressableCard}
+                    >
+                        <Icon name={'alert-outline'} size={35} />
+                        <Text style={styles.alertCounter}>1</Text>
+                    </Pressable>
+                </SmCard>
+                <SmCard
+                    cardStyle={styles.customCard}
+                >
+                    <Pressable 
+                        onPress={() => navigation.navigate('Notification')} 
+                        style={styles.pressableCard}
+                    >
+                        <Icon name={'bell-outline'} size={35} color={styleColors.blue2} />
+                        <Text style={styles.notificationCounter}>1</Text>
+                    </Pressable>
                 </SmCard>
             </View>
 
@@ -63,6 +81,18 @@ const styles = StyleSheet.create({
     },
     customCard: {
         flex: .5,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    notificationCounter: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: styleColors.blue2
+    },
+    pressableCard: {
+        width: '100%',
+        height: '100%',
         justifyContent: 'center',
         alignItems: 'center'
     }

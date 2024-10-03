@@ -1,20 +1,20 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "../utils/api.backend";
+import { setDatas } from "../store/userSlice";
 
 export const fetchUserDatas = createAsyncThunk(
     'user/fetchUserDatas',
-    async (_args, {rejectWithValue, getState}) => {
+    async (_args, {rejectWithValue, getState, dispatch}) => {
         try {
-            console.log('test')
             const {token, decodedToken} = getState().auth
             const response = await api.get(`/user/${decodedToken.id}`, {
                 headers: {Authorization: `Bearer ${token}`}
             })
-            console.log(response)
+            dispatch(setDatas(response))
         } catch (e) {
             console.warn(e)
             rejectWithValue(e)
         }
     },
-    {condition: (_, {getState}) => !getState().users?.datas}
+    {condition: (_args, {getState}) => !getState().users?.datas}
 )

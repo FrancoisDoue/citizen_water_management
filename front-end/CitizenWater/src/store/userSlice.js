@@ -9,7 +9,7 @@ const userSlice = createSlice({
     },
     reducers: {
         setDatas: (state, actions) => {
-
+            state.datas = actions.payload
         },
     },
     extraReducers: (builder) => {
@@ -19,7 +19,6 @@ const userSlice = createSlice({
         })
         builder.addCase(fetchUserDatas.pending, (state, action) => {
             console.log('fetchuserdatas pending')
-
             state.isPending = true
         })
         builder.addCase(fetchUserDatas.rejected, (state, action) => {
